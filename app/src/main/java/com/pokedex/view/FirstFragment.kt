@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import com.pokedex.R
 import com.pokedex.adapter.PokemonListAdapter
 import com.pokedex.models.Pokemon
@@ -29,11 +30,16 @@ class FirstFragment : Fragment() {
         mPokemonsList.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         val viewModel = ViewModelProviders.of(this)[HomeViewModel::class.java]
-        var pokemonListAdapter = PokemonListAdapter()
-        mPokemonsList.adapter = pokemonListAdapter
-        viewModel.getPokemons().observe(this, Observer<List<Pokemon>> {
-            pokemonListAdapter.setPokemons(it)
+        var pokemonListAdapter = PokemonListAdapter(listOf())
+        viewModel.pokemons.observe(activity!!, Observer<List<Pokemon>> {
+            pokemonListAdapter.addPokemons(it)
         })
+        mPokemonsList.adapter = pokemonListAdapter
+        fab.setOnClickListener { view ->
+            viewModel.addPokemon(Pokemon("Mewtwo", "psychic"))
+            Snackbar.make(view, "aaaa", Snackbar.LENGTH_LONG)
+                .show()
+        }
         super.onViewCreated(view, savedInstanceState)
 
     }

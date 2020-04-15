@@ -5,7 +5,10 @@ import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import androidx.lifecycle.ViewModelProviders
 import com.pokedex.R
+import com.pokedex.models.Pokemon
+import com.pokedex.view_model.HomeViewModel
 
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -15,11 +18,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
+        val viewModel = ViewModelProviders.of(this)[HomeViewModel::class.java]
+//        fab.setOnClickListener { view ->
+//            viewModel.addPokemon(Pokemon("Mewtwo", "psychic"))
+//            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                    .setAction("Action", null).show()
+//        }
 
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
-        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

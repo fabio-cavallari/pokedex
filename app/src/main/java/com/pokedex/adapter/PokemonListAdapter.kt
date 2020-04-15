@@ -10,9 +10,9 @@ import com.pokedex.R
 import com.pokedex.models.Pokemon
 import kotlinx.android.synthetic.main.pokemon_list_item.view.*
 
-class PokemonListAdapter() : Adapter<PokemonListAdapter.ViewHolder>() {
+class PokemonListAdapter(var pokemons: List<Pokemon>) : Adapter<PokemonListAdapter.ViewHolder>() {
 
-    private lateinit var pokemons: List<Pokemon>
+//    private lateinit var pokemons: List<Pokemon>
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         var view =
@@ -29,7 +29,7 @@ class PokemonListAdapter() : Adapter<PokemonListAdapter.ViewHolder>() {
         holder.bindView(pokemon)
     }
 
-    fun setPokemons(pokemons: List<Pokemon>) {
+    fun addPokemons(pokemons: List<Pokemon>) {
         this.pokemons = pokemons
         notifyDataSetChanged()
     }
