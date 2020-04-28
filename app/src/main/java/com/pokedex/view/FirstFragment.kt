@@ -30,14 +30,14 @@ class FirstFragment : Fragment() {
         mPokemonsList.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         val viewModel = ViewModelProviders.of(this)[HomeViewModel::class.java]
-        var pokemonListAdapter = PokemonListAdapter(listOf())
-        viewModel.pokemons.observe(activity!!, Observer<List<Pokemon>> {
-            pokemonListAdapter.addPokemons(it)
-        })
+        var pokemonListAdapter = PokemonListAdapter()
         mPokemonsList.adapter = pokemonListAdapter
+        viewModel.pokemons.observe(activity!!, Observer<List<Pokemon>> {
+            pokemonListAdapter.submitList(it)
+        })
         fab.setOnClickListener { view ->
             viewModel.addPokemon(Pokemon("Mewtwo", "psychic"))
-            Snackbar.make(view, "aaaa", Snackbar.LENGTH_LONG)
+            Snackbar.make(view, "add pokemon", Snackbar.LENGTH_LONG)
                 .show()
         }
         super.onViewCreated(view, savedInstanceState)

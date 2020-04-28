@@ -18,13 +18,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
-        val viewModel = ViewModelProviders.of(this)[HomeViewModel::class.java]
-//        fab.setOnClickListener { view ->
-//            viewModel.addPokemon(Pokemon("Mewtwo", "psychic"))
-//            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                    .setAction("Action", null).show()
-//        }
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

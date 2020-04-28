@@ -1,6 +1,5 @@
 package com.pokedex.view_model
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.pokedex.models.Pokemon
