@@ -5,7 +5,6 @@ import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
-import androidx.lifecycle.ViewModelProviders
 import com.pokedex.R
 import com.pokedex.models.Pokemon
 import com.pokedex.view_model.HomeViewModel
