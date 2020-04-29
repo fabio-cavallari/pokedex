@@ -24,12 +24,13 @@ class PokemonListAdapter() : ListAdapter<Pokemon, PokemonListAdapter.ViewHolder>
         holder.bindView(getItem(position))
     }
 
+
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bindView(pokemon: Pokemon) {
             val type = itemView.pokemon_type
             val name = itemView.pokemon_name
             name.text = pokemon.name
-            type.text = pokemon.type
+//            type.text = pokemon.type
         }
     }
 

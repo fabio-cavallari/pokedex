@@ -9,22 +9,22 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 class HomeViewModel: ViewModel() {
-    var pokemons: MutableLiveData<List<Pokemon>> = MutableLiveData<List<Pokemon>>()
+    var pokemons: MutableLiveData<List<Pokemon>> = MutableLiveData<List<Pokemon>>(listOf())
     var pokemonApiService: PokemonApiService = PokemonApiService()
-    var pokemonNamesList: List<PokemonIndex> = listOf()
 
     init {
-        val pokemonList = listOf<Pokemon>(Pokemon("Pikachu","eletric"), Pokemon("Charmander", "fire"))
-        pokemons.value = pokemonList
         fetchPokemons()
-
     }
 
-    fun fetchPokemons() {
+    private fun fetchPokemons() {
         pokemonApiService.fetchPokemonsNames()
             ?.subscribeOn(Schedulers.io())
             ?.subscribe ({
-                pokemonNamesList = it.results
+                val fetchedList = mutableListOf<Pokemon>()
+                it.results.forEach { pokemonIndex ->
+                    fetchedList.add(pokemonIndex.asDomainModel())
+                }
+                pokemons.postValue(fetchedList)
             },  { e ->
                 e.printStackTrace()
             })
@@ -34,6 +34,6 @@ class HomeViewModel: ViewModel() {
     fun addPokemon(pokemon: Pokemon) {
         var updatedPokemons = pokemons.value?.toMutableList()
         updatedPokemons?.add(pokemon)
-        pokemons.value = updatedPokemons
+        pokemons.postValue(updatedPokemons)
     }
 }

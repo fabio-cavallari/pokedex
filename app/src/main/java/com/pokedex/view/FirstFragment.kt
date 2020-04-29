@@ -36,7 +36,7 @@ class FirstFragment : Fragment() {
             pokemonListAdapter.submitList(it)
         })
         fab.setOnClickListener { view ->
-            viewModel.addPokemon(Pokemon("Mewtwo", "psychic"))
+            viewModel.addPokemon(Pokemon("Mewtwo"))
             Snackbar.make(view, "add pokemon", Snackbar.LENGTH_LONG)
                 .show()
         }
