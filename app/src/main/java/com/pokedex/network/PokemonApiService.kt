@@ -52,14 +52,16 @@ class PokemonApiService {
         val pokemonsList: Observable<PokemonNetModel>
 
         pokemonsList =  client.getPokemonsPage(offset, limit)
-            .flatMap {pokemonPage ->
+            .flatMap { pokemonPage ->
                 Observable.fromIterable(pokemonPage.results)
-                    .flatMap { pokemonResult ->
-                        client.getPokemonByUrl(pokemonResult.pokemonUrl)
-
-                    }
-
+//                    .flatMap { pokemonResult ->
+//                        client.getPokemonByUrl(pokemonResult.pokemonUrl)
+////                    }
             }
+            .flatMap { pokemonResult ->
+                client.getPokemonByUrl(pokemonResult.pokemonUrl)
+            }
+
         pokemonsList.forEach{
             obj.add(it)
         }

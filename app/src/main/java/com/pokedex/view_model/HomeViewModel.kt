@@ -16,14 +16,14 @@ import io.reactivex.schedulers.Schedulers
 class HomeViewModel: ViewModel() {
     var pokemonList: LiveData<PagedList<PokemonNetModel>>
     private val pokemonApiService: PokemonApiService = PokemonApiService()
-    private val pageSize = 8
+    private val pageSize = 10
     private val pokemonsDataSourceFactory: PokemonDataSourceFactory
 
     init {
         pokemonsDataSourceFactory = PokemonDataSourceFactory(pokemonApiService)
         val config = PagedList.Config.Builder()
             .setPageSize(pageSize)
-            .setInitialLoadSizeHint(pageSize * 2)
+            .setInitialLoadSizeHint(pageSize)
             .setEnablePlaceholders(false)
             .build()
         pokemonList = LivePagedListBuilder<Int, PokemonNetModel>(pokemonsDataSourceFactory, config).build()
