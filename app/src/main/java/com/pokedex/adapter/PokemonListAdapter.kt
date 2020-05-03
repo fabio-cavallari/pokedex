@@ -7,10 +7,11 @@ import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.pokedex.R
+import com.pokedex.models.network.PokemonNetModel
 import com.pokedex.models.network.PokemonResult
 import kotlinx.android.synthetic.main.pokemon_list_item.view.*
 
-class PokemonListAdapter() : PagedListAdapter<PokemonResult, PokemonListAdapter.ViewHolder>(PokemonListAdapter.DiffCallback()) {
+class PokemonListAdapter() : PagedListAdapter<PokemonNetModel, PokemonListAdapter.ViewHolder>(PokemonListAdapter.DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         var view =
@@ -27,7 +28,7 @@ class PokemonListAdapter() : PagedListAdapter<PokemonResult, PokemonListAdapter.
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bindView(pokemon: PokemonResult?) {
+        fun bindView(pokemon: PokemonNetModel?) {
 //            val type = itemView.pokemon_type
             val name = itemView.pokemon_name
             name.text = pokemon?.name
@@ -35,12 +36,12 @@ class PokemonListAdapter() : PagedListAdapter<PokemonResult, PokemonListAdapter.
         }
     }
 
-    class DiffCallback: DiffUtil.ItemCallback<PokemonResult>() {
-        override fun areItemsTheSame(oldItem: PokemonResult, newItem: PokemonResult): Boolean {
+    class DiffCallback: DiffUtil.ItemCallback<PokemonNetModel>() {
+        override fun areItemsTheSame(oldItem: PokemonNetModel, newItem: PokemonNetModel): Boolean {
             return oldItem.name == newItem.name
         }
 
-        override fun areContentsTheSame(oldItem: PokemonResult, newItem: PokemonResult): Boolean {
+        override fun areContentsTheSame(oldItem: PokemonNetModel, newItem: PokemonNetModel): Boolean {
             return oldItem == newItem
         }
 

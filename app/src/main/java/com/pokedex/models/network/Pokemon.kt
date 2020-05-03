@@ -11,7 +11,7 @@ data class PokemonPage(
 
 data class PokemonResult(
     val name: String,
-    @SerializedName("url") val image: String
+    @SerializedName("url") val pokemonUrl: String
 
 ) {
     fun asDomainModel(): Pokemon {
@@ -21,6 +21,6 @@ data class PokemonResult(
 
 data class PokemonNetModel(
     val name: String,
-    val type: List<String>
+    val order: Int
 )
 
