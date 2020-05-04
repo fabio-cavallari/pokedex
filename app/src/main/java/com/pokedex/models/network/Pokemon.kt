@@ -20,7 +20,25 @@ data class PokemonNetModel(
     val order: Int,
     val sprites: Sprite,
     val types: List<Type>
-)
+){
+    fun getTypeBySlot(slot: Int): Type {
+        var requiredType = Type(0, TypeInfo("",""))
+        types.forEach { type ->
+            if (type.slot == slot)
+                requiredType = Type(type.slot, TypeInfo(type.type.name, type.type.url))
+        }
+
+        return requiredType
+    }
+
+    fun asDomainModel(): Pokemon{
+        var types = types
+            .mapIndexed { index, type ->
+                getTypeBySlot(index + 1).type.name
+            }
+        return Pokemon(name, order, types, sprites.frontDefault)
+    }
+}
 
 data class Sprite(
     @SerializedName("front_default") val frontDefault: String
