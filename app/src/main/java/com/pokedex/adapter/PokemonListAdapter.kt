@@ -1,18 +1,18 @@
 package com.pokedex.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.Adapter
 import com.pokedex.R
 import com.pokedex.models.Pokemon
+import com.pokedex.models.network.PokemonNetModel
+import com.pokedex.models.network.PokemonResult
 import kotlinx.android.synthetic.main.pokemon_list_item.view.*
 
-class PokemonListAdapter() : ListAdapter<Pokemon, PokemonListAdapter.ViewHolder>(PokemonListAdapter.DiffCallback()) {
+class PokemonListAdapter() : PagedListAdapter<Pokemon, PokemonListAdapter.ViewHolder>(PokemonListAdapter.DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         var view =
@@ -24,13 +24,14 @@ class PokemonListAdapter() : ListAdapter<Pokemon, PokemonListAdapter.ViewHolder>
         holder.bindView(getItem(position))
     }
 
+    override fun getItemViewType(position: Int): Int {
+        return super.getItemViewType(position)
+    }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bindView(pokemon: Pokemon) {
-            val type = itemView.pokemon_type
+        fun bindView(pokemon: Pokemon?) {
             val name = itemView.pokemon_name
-            name.text = pokemon.name
-//            type.text = pokemon.type
+            name.text = pokemon?.name?.capitalize()
         }
     }
 

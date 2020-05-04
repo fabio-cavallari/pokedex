@@ -32,14 +32,10 @@ class FirstFragment : Fragment() {
         val viewModel = ViewModelProvider(requireActivity())[HomeViewModel::class.java]
         var pokemonListAdapter = PokemonListAdapter()
         mPokemonsList.adapter = pokemonListAdapter
-        viewModel.pokemons.observe(this, Observer<List<Pokemon>> {
+        viewModel.pokemonList.observe(this, Observer {
             pokemonListAdapter.submitList(it)
         })
-        fab.setOnClickListener { view ->
-            viewModel.addPokemon(Pokemon("Mewtwo"))
-            Snackbar.make(view, "add pokemon", Snackbar.LENGTH_LONG)
-                .show()
-        }
+
         super.onViewCreated(view, savedInstanceState)
 
     }

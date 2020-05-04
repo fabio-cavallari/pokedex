@@ -1,17 +1,14 @@
 package com.pokedex.network
 
-import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.pokedex.models.network.PokemonIndex
-import com.pokedex.models.network.PokemonResult
+import com.pokedex.models.network.PokemonNetModel
 import io.reactivex.Observable
-import io.reactivex.rxjava3.plugins.RxJavaPlugins
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.create
+
 
 class PokemonApiService {
     val client: PokemonApiClient
@@ -35,7 +32,24 @@ class PokemonApiService {
         client = retrofit.create<PokemonApiClient>(PokemonApiClient::class.java)
     }
 
-    fun fetchPokemonsNames(): Observable<PokemonResult>? {
-        return client.getPokemonsNames()
+    fun fetchPokemonsList(offset: Int, limit: Int): Observable<List<PokemonNetModel>> {
+        val pokemonsList: MutableList<PokemonNetModel> = mutableListOf()
+        val pokemonsObservable: Observable<PokemonNetModel>
+
+        pokemonsObservable =  client.getPokemonsPage(offset, limit)
+            .flatMap { pokemonPage ->
+                Observable.fromIterable(pokemonPage.results)
+
+            }
+            .flatMap { pokemonResult ->
+                client.getPokemonByUrl(pokemonResult.pokemonUrl)
+            }
+
+        pokemonsObservable.forEach{
+            pokemonsList.add(it)
+        }
+
+        return Observable.just(pokemonsList)
     }
+
 }
