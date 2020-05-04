@@ -25,31 +25,4 @@ class PokemonsDataSource(private val pokemonApiService: PokemonApiService): Page
     override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, PokemonNetModel>) {
 
     }
-
-//    override fun loadInitial(
-//        params: LoadInitialParams<String>,
-//        callback: LoadInitialCallback<String, PokemonResult>
-//    ) {
-//        pokemonApiService.fetchPokemonsNames()
-//            .subscribe({ response ->
-//                callback.onResult(response.results, response.next, response.previous)
-//            }, {e -> e.printStackTrace()})
-//
-//    }
-//
-//    override fun loadAfter(
-//        params: LoadParams<String>,
-//        callback: LoadCallback<String, PokemonResult>
-//    ) {
-//        pokemonApiService.fetchPokemonsNames()
-//            .subscribe({ response ->
-//                callback.onResult(response.results, response.next)
-//            },{e -> e.printStackTrace()})
-//    }
-//
-//    override fun loadBefore(
-//        params: LoadParams<String>,
-//        callback: LoadCallback<String, PokemonResult>
-//    ) {
-//    }
 }

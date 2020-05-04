@@ -28,26 +28,4 @@ class HomeViewModel: ViewModel() {
             .build()
         pokemonList = LivePagedListBuilder<Int, PokemonNetModel>(pokemonsDataSourceFactory, config).build()
     }
-
-//    private fun fetchPokemons() {
-//
-//        pokemonApiService.fetchPokemonsNames()
-//            .subscribeOn(Schedulers.io())
-//            .subscribe ({
-//                val fetchedList = mutableListOf<Pokemon>()
-//                it.results.forEach { pokemonIndex ->
-//                    fetchedList.add(pokemonIndex.asDomainModel())
-//                }
-//                pokemonList.postValue(fetchedList)
-//            },  { e ->
-//                e.printStackTrace()
-//            })
-//    }
-
-
-//    fun addPokemon(pokemon: Pokemon) {
-//        var updatedPokemons = pokemonList.value?.toMutableList()
-//        updatedPokemons?.add(pokemon)
-//        pokemons.postValue(updatedPokemons)
-//    }
 }

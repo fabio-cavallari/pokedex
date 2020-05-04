@@ -13,14 +13,26 @@ data class PokemonResult(
     val name: String,
     @SerializedName("url") val pokemonUrl: String
 
-) {
-    fun asDomainModel(): Pokemon {
-        return Pokemon(name)
-    }
-}
+)
 
 data class PokemonNetModel(
     val name: String,
-    val order: Int
+    val order: Int,
+    val sprites: Sprite,
+    val types: List<Type>
+)
+
+data class Sprite(
+    @SerializedName("front_default") val frontDefault: String
+)
+
+data class Type(
+    val slot: Int,
+    val type: TypeInfo
+)
+
+data class TypeInfo(
+    val name: String,
+    val url: String
 )
 
