@@ -32,24 +32,15 @@ class PokemonApiService {
         client = retrofit.create<PokemonApiClient>(PokemonApiClient::class.java)
     }
 
-    fun fetchPokemonsList(offset: Int, limit: Int): Observable<List<PokemonNetModel>> {
-        val pokemonsList: MutableList<PokemonNetModel> = mutableListOf()
-        val pokemonsObservable: Observable<PokemonNetModel>
+    fun fetchPokemonsList(offset: Int, limit: Int): Observable<PokemonNetModel> {
 
-        pokemonsObservable =  client.getPokemonsPage(offset, limit)
+        return client.getPokemonsPage(offset, limit)
             .flatMap { pokemonPage ->
                 Observable.fromIterable(pokemonPage.results)
-
             }
-            .flatMap { pokemonResult ->
-                client.getPokemonByUrl(pokemonResult.pokemonUrl)
+            .flatMap { result ->
+                client.getPokemonByUrl(result.pokemonUrl)
             }
-
-        pokemonsObservable.forEach{
-            pokemonsList.add(it)
-        }
-
-        return Observable.just(pokemonsList)
     }
-
 }
+
