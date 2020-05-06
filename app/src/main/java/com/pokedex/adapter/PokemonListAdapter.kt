@@ -3,11 +3,15 @@ package com.pokedex.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.LinearLayout
+import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.pokedex.R
+import com.pokedex.custom_views.TypeView
 import com.pokedex.models.Pokemon
 import com.pokedex.models.network.PokemonNetModel
 import com.pokedex.models.network.PokemonResult
@@ -27,6 +31,7 @@ class PokemonListAdapter() : PagedListAdapter<Pokemon, PokemonListAdapter.ViewHo
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bindView(pokemon: Pokemon?) {
+            val types: LinearLayoutCompat = itemView.types
             val image = itemView.pokemon_image
             val name = itemView.pokemon_name
             name.text = pokemon?.name?.capitalize()
@@ -36,6 +41,13 @@ class PokemonListAdapter() : PagedListAdapter<Pokemon, PokemonListAdapter.ViewHo
                 .centerCrop()
                 .placeholder(R.drawable.pokeball)
                 .into(image);
+//            setTypes(types, pokemon)
+        }
+
+        fun setTypes(typesView: LinearLayoutCompat, pokemon: Pokemon?) {
+            pokemon?.type?.forEach { type ->
+                typesView.addView(TypeView(typesView.context, type))
+            }
         }
     }
 
