@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.pokedex.R
 import com.pokedex.models.Pokemon
 import com.pokedex.models.network.PokemonNetModel
@@ -24,14 +25,17 @@ class PokemonListAdapter() : PagedListAdapter<Pokemon, PokemonListAdapter.ViewHo
         holder.bindView(getItem(position))
     }
 
-    override fun getItemViewType(position: Int): Int {
-        return super.getItemViewType(position)
-    }
-
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bindView(pokemon: Pokemon?) {
+            val image = itemView.pokemon_image
             val name = itemView.pokemon_name
             name.text = pokemon?.name?.capitalize()
+            Glide
+                .with(itemView.context)
+                .load(pokemon?.icon)
+                .centerCrop()
+                .placeholder(R.drawable.pokeball)
+                .into(image);
         }
     }
 
