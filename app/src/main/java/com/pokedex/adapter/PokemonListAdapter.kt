@@ -3,18 +3,15 @@ package com.pokedex.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
 import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.pokedex.R
 import com.pokedex.custom_views.TypeView
 import com.pokedex.models.Pokemon
-import com.pokedex.models.network.PokemonNetModel
-import com.pokedex.models.network.PokemonResult
 import kotlinx.android.synthetic.main.pokemon_list_item.view.*
 
 class PokemonListAdapter() : PagedListAdapter<Pokemon, PokemonListAdapter.ViewHolder>(PokemonListAdapter.DiffCallback()) {
@@ -38,13 +35,13 @@ class PokemonListAdapter() : PagedListAdapter<Pokemon, PokemonListAdapter.ViewHo
             Glide
                 .with(itemView.context)
                 .load(pokemon?.icon)
-                .centerCrop()
-                .placeholder(R.drawable.pokeball)
+                .fitCenter()
                 .into(image);
-//            setTypes(types, pokemon)
+            setTypes(types, pokemon)
         }
 
         fun setTypes(typesView: LinearLayoutCompat, pokemon: Pokemon?) {
+            typesView.removeAllViews()
             pokemon?.type?.forEach { type ->
                 typesView.addView(TypeView(typesView.context, type))
             }
