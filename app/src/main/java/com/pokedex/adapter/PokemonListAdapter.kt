@@ -35,6 +35,7 @@ class PokemonListAdapter() : PagedListAdapter<Pokemon, PokemonListAdapter.ViewHo
             Glide
                 .with(itemView.context)
                 .load(pokemon?.icon)
+                .placeholder(R.drawable.pokeball2)
                 .fitCenter()
                 .into(image);
             setTypes(types, pokemon)
